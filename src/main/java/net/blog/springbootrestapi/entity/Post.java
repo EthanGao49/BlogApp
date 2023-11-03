@@ -20,7 +20,7 @@ public class Post {
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    @jakarta.persistence.Id
+    @Id
     private long Id;
     @Column(nullable = false)
     private String title;
