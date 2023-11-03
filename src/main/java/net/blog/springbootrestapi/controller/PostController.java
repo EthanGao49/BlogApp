@@ -3,6 +3,7 @@ package net.blog.springbootrestapi.controller;
 import net.blog.springbootrestapi.dto.PostDto;
 import net.blog.springbootrestapi.dto.PostResponse;
 import net.blog.springbootrestapi.service.PostService;
+import net.blog.springbootrestapi.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +28,9 @@ public class PostController {
 
     @GetMapping
     public PostResponse getAllPosts(
-            @RequestParam(name = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
-            @RequestParam(name = "sortBy", defaultValue = "id", required = false) String sortBy
+            @RequestParam(name = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(name = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy
     ) {
         return postService.getAllPosts(pageNo, pageSize, sortBy);
     }
