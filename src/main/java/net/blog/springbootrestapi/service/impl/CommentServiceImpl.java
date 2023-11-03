@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -33,13 +34,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto updateComment(long postId, CommentDto commentDto) {
-        return null;
+    public CommentDto updateComment(long postId, long commentId, CommentDto commentDto) {
+       return null;
     }
 
     @Override
     public List<CommentDto> getAllComments(long postId) {
-        return null;
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        return comments.stream().map(comment -> toDto(comment)).collect(Collectors.toList());
     }
 
     @Override
