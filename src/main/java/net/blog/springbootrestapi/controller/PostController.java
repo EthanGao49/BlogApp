@@ -1,6 +1,7 @@
 package net.blog.springbootrestapi.controller;
 
 import net.blog.springbootrestapi.dto.PostDto;
+import net.blog.springbootrestapi.dto.PostResponse;
 import net.blog.springbootrestapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,12 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDto> getAllPosts() {
-        return postService.getAllPosts();
+    public PostResponse getAllPosts(
+            @RequestParam(name = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(name = "sortBy", defaultValue = "id", required = false) String sortBy
+    ) {
+        return postService.getAllPosts(pageNo, pageSize, sortBy);
     }
 
     @GetMapping("/{id}")
