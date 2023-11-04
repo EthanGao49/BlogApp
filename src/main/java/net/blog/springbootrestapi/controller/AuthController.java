@@ -1,6 +1,8 @@
 package net.blog.springbootrestapi.controller;
 
+import net.blog.springbootrestapi.dto.JWTAuthResponseDto;
 import net.blog.springbootrestapi.dto.LoginDto;
+import net.blog.springbootrestapi.dto.RegisterDto;
 import net.blog.springbootrestapi.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +22,16 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
-        String response =  authService.login(loginDto);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<JWTAuthResponseDto> login(@RequestBody LoginDto loginDto) {
+        String token = authService.login(loginDto);
+        JWTAuthResponseDto jwtAuthResponseDto = new JWTAuthResponseDto();
+        jwtAuthResponseDto.setAccessToken(token);
+        return ResponseEntity.ok(jwtAuthResponseDto);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+        String response = authService.register(registerDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
